@@ -20,15 +20,15 @@ import org.hibernate.annotations.Where;
 @Setter
 public class Address extends BaseEntity {
 
-    private String street;
+    private String publicPlace;
 
-    private String number;
+    private String complement;
+
+    private String neighborhood;
 
     private String city;
 
     private String state;
-
-    private String complement;
 
     @OneToOne(mappedBy = "address")
     private Client client;
