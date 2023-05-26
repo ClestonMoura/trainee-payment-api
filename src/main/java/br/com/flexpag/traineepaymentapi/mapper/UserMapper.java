@@ -1,5 +1,6 @@
 package br.com.flexpag.traineepaymentapi.mapper;
 
+import br.com.flexpag.traineepaymentapi.dto.AuthResponseDTO;
 import br.com.flexpag.traineepaymentapi.dto.RegisterRequestDTO;
 import br.com.flexpag.traineepaymentapi.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,15 @@ public class UserMapper {
                 .password(passwordEncoder.encode(registerRequestDTO.password()))
                 .role(registerRequestDTO.role())
                 .build();
+    }
+
+    public AuthResponseDTO maptoAuthResponseDTO(User user, String jwtToken) {
+        return new AuthResponseDTO(
+                user.getUsername(),
+                user.getEmail(),
+                user.getRole(),
+                jwtToken
+        );
     }
 
 }

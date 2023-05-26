@@ -17,7 +17,7 @@ public class AddressService {
     private final RestTemplate restTemplate;
     private final AddressMapper mapper;
 
-    @Value("${app.uri}")
+    @Value("${appapplication.uri}")
     private String viaCepUrl;
 
     public AddressResponseDTO getAddressByCep(String cep) {
