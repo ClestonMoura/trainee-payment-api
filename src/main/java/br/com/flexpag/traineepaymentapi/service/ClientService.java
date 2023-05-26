@@ -2,7 +2,7 @@ package br.com.flexpag.traineepaymentapi.service;
 
 import br.com.flexpag.traineepaymentapi.dto.ClientFormDTO;
 import br.com.flexpag.traineepaymentapi.dto.ClientResponseDTO;
-import br.com.flexpag.traineepaymentapi.mapper.ClientMapper;
+import br.com.flexpag.traineepaymentapi.mapper.EntityMapper;
 import br.com.flexpag.traineepaymentapi.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class ClientService {
 
     private final ClientRepository repository;
-    private final ClientMapper clientMapper;
+    private final EntityMapper clientMapper;
 
     public ClientResponseDTO registerClient(ClientFormDTO request) {
         var newClient = repository.save(clientMapper.mapToClient(request));
