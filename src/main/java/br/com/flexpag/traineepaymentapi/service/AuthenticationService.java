@@ -1,9 +1,9 @@
 package br.com.flexpag.traineepaymentapi.service;
 
 import br.com.flexpag.traineepaymentapi.config.JwtService;
-import br.com.flexpag.traineepaymentapi.dto.AuthRequestDTO;
+import br.com.flexpag.traineepaymentapi.dto.AuthFormDTO;
 import br.com.flexpag.traineepaymentapi.dto.AuthResponseDTO;
-import br.com.flexpag.traineepaymentapi.dto.RegisterRequestDTO;
+import br.com.flexpag.traineepaymentapi.dto.RegisterFormDTO;
 import br.com.flexpag.traineepaymentapi.mapper.UserMapper;
 import br.com.flexpag.traineepaymentapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,21 +21,21 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
 
-    public AuthResponseDTO register(RegisterRequestDTO registerRequestDTO) {
-        var user = mapper.mapToUser(registerRequestDTO);
+    public AuthResponseDTO register(RegisterFormDTO registerFormDTO) {
+        var user = mapper.mapToUser(registerFormDTO);
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return mapper.maptoAuthResponseDTO(savedUser, jwtToken);
     }
 
-    public AuthResponseDTO authenticate(AuthRequestDTO authRequestDTO) {
+    public AuthResponseDTO authenticate(AuthFormDTO authFormDTO) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authRequestDTO.username(),
-                        authRequestDTO.password()
+                        authFormDTO.username(),
+                        authFormDTO.password()
                 )
         );
-        var user = repository.findByUsername(authRequestDTO.username()).orElseThrow();
+        var user = repository.findByUsername(authFormDTO.username()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return mapper.maptoAuthResponseDTO(user, jwtToken);
     }

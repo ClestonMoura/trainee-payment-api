@@ -28,7 +28,8 @@ public class Transaction extends BaseEntity {
 
     private Long authorizationCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "purchase_id", referencedColumnName = "id")
     private Purchase purchase;
 
 }

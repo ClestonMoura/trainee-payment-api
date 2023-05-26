@@ -1,6 +1,6 @@
 package br.com.flexpag.traineepaymentapi.service;
 
-import br.com.flexpag.traineepaymentapi.dto.AddressResponseDTO;
+import br.com.flexpag.traineepaymentapi.dto.AddressDTO;
 import br.com.flexpag.traineepaymentapi.dto.ViaCepResponseDTO;
 import br.com.flexpag.traineepaymentapi.mapper.AddressMapper;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +20,9 @@ public class AddressService {
     @Value("${appapplication.uri}")
     private String viaCepUrl;
 
-    public AddressResponseDTO getAddressByCep(String cep) {
+    public AddressDTO getAddressByCep(String cep) {
         var viaCep = restTemplate.getForObject(viaCepUrl, ViaCepResponseDTO.class, Map.of("cep", cep));
-        return mapper.mapToAddressResponseDTO(viaCep);
+        return mapper.mapToAddressDTO(viaCep);
     }
 
 }

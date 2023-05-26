@@ -26,7 +26,8 @@ public class Purchase extends BaseEntity {
 
     private Double fee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
     @OneToMany
@@ -36,11 +37,7 @@ public class Purchase extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "invoice_id"))
     private Set<Invoice> invoices;
 
-    @OneToMany
-    @JoinTable(
-            name = "purchase_transactions",
-            joinColumns = @JoinColumn(name = "purchase_id"),
-            inverseJoinColumns = @JoinColumn(name = "transaction_id"))
-    private Set<Transaction> transactions;
+    @OneToOne(mappedBy = "purchase")
+    private Transaction transactions;
 
 }

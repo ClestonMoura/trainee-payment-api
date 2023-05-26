@@ -1,6 +1,6 @@
 package br.com.flexpag.traineepaymentapi.controller;
 
-import br.com.flexpag.traineepaymentapi.dto.AddressResponseDTO;
+import br.com.flexpag.traineepaymentapi.dto.AddressDTO;
 import br.com.flexpag.traineepaymentapi.service.AddressService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,7 @@ public class AddressController {
     private final AddressService service;
 
     @GetMapping
-    public ResponseEntity<AddressResponseDTO> getAddressByCep(@RequestParam(name = "cep") String cep) {
+    public ResponseEntity<AddressDTO> getAddressByCep(@RequestParam(name = "cep") String cep) {
         var addressResponse = service.getAddressByCep(cep);
         return ResponseEntity.ok(addressResponse);
     }

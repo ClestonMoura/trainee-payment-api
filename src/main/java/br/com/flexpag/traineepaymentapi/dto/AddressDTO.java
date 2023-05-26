@@ -1,6 +1,6 @@
 package br.com.flexpag.traineepaymentapi.dto;
 
-public record AddressResponseDTO(
+public record AddressDTO(
         String publicPlace,
         String complement,
         String neighborhood,

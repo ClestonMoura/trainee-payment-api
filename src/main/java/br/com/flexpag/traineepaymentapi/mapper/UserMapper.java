@@ -1,7 +1,7 @@
 package br.com.flexpag.traineepaymentapi.mapper;
 
 import br.com.flexpag.traineepaymentapi.dto.AuthResponseDTO;
-import br.com.flexpag.traineepaymentapi.dto.RegisterRequestDTO;
+import br.com.flexpag.traineepaymentapi.dto.RegisterFormDTO;
 import br.com.flexpag.traineepaymentapi.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,12 +13,12 @@ public class UserMapper {
 
     private final PasswordEncoder passwordEncoder;
 
-    public User mapToUser(RegisterRequestDTO registerRequestDTO) {
+    public User mapToUser(RegisterFormDTO registerFormDTO) {
         return User.builder()
-                .username(registerRequestDTO.username())
-                .email(registerRequestDTO.email())
-                .password(passwordEncoder.encode(registerRequestDTO.password()))
-                .role(registerRequestDTO.role())
+                .username(registerFormDTO.username())
+                .email(registerFormDTO.email())
+                .password(passwordEncoder.encode(registerFormDTO.password()))
+                .role(registerFormDTO.role())
                 .build();
     }
 

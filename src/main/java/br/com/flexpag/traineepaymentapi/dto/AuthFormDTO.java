@@ -1,6 +1,6 @@
 package br.com.flexpag.traineepaymentapi.dto;
 
-public record AuthRequestDTO(
+public record AuthFormDTO(
         String username,
         String password) {
 }

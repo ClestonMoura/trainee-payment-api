@@ -1,8 +1,8 @@
 package br.com.flexpag.traineepaymentapi.controller;
 
-import br.com.flexpag.traineepaymentapi.dto.AuthRequestDTO;
+import br.com.flexpag.traineepaymentapi.dto.AuthFormDTO;
 import br.com.flexpag.traineepaymentapi.dto.AuthResponseDTO;
-import br.com.flexpag.traineepaymentapi.dto.RegisterRequestDTO;
+import br.com.flexpag.traineepaymentapi.dto.RegisterFormDTO;
 import br.com.flexpag.traineepaymentapi.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,13 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterRequestDTO registerRequestDTO) {
-        return ResponseEntity.ok(service.register(registerRequestDTO));
+    public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterFormDTO registerFormDTO) {
+        return ResponseEntity.ok(service.register(registerFormDTO));
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthRequestDTO authRequestDTO) {
-        return ResponseEntity.ok(service.authenticate(authRequestDTO));
+    public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthFormDTO authFormDTO) {
+        return ResponseEntity.ok(service.authenticate(authFormDTO));
     }
 
 }
