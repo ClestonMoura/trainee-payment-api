@@ -3,10 +3,7 @@ package br.com.flexpag.traineepaymentapi.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -18,6 +15,7 @@ import org.hibernate.annotations.Where;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Address extends BaseEntity {
 
     private String publicPlace;

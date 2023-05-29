@@ -1,10 +1,7 @@
 package br.com.flexpag.traineepaymentapi.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -18,6 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Purchase extends BaseEntity {
 
     private Long amount;
@@ -26,7 +24,8 @@ public class Purchase extends BaseEntity {
 
     private Double fee;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
     @OneToMany
@@ -36,11 +35,7 @@ public class Purchase extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "invoice_id"))
     private Set<Invoice> invoices;
 
-    @OneToMany
-    @JoinTable(
-            name = "purchase_transactions",
-            joinColumns = @JoinColumn(name = "purchase_id"),
-            inverseJoinColumns = @JoinColumn(name = "transaction_id"))
-    private Set<Transaction> transactions;
+    @OneToOne(mappedBy = "purchase")
+    private Transaction transactions;
 
 }
