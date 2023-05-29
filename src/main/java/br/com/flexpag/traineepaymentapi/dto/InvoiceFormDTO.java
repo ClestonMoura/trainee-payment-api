@@ -6,6 +6,5 @@ public record InvoiceFormDTO(
         LocalDate dueDate,
         String barcode,
         Long amount,
-        Long contractNumber,
-        Long purchaseId) {
+        Long contractNumber) {
 }

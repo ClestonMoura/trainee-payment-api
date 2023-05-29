@@ -1,10 +1,7 @@
 package br.com.flexpag.traineepaymentapi.mapper;
 
 import br.com.flexpag.traineepaymentapi.dto.*;
-import br.com.flexpag.traineepaymentapi.entity.Address;
-import br.com.flexpag.traineepaymentapi.entity.Client;
-import br.com.flexpag.traineepaymentapi.entity.Purchase;
-import br.com.flexpag.traineepaymentapi.entity.User;
+import br.com.flexpag.traineepaymentapi.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -102,5 +99,26 @@ public class EntityMapper {
                 purchase.getInvoiceAmount(),
                 purchase.getFee(),
                 clientId);
+    }
+
+    public Invoice mapToInvoice(InvoiceFormDTO request) {
+        return Invoice.builder()
+                .dueDate(request.dueDate())
+                .barcode(request.barcode())
+                .amount(request.amount())
+                .contractNumber(request.contractNumber())
+                .build();
+    }
+
+    public InvoiceResponseDTO mapToInvoiceResponseDTO(Invoice invoice, Long purchaseId) {
+        return new InvoiceResponseDTO(
+                invoice.getId(),
+                invoice.getCreatedOn(),
+                invoice.getUpdatedOn(),
+                invoice.getDueDate(),
+                invoice.getBarcode(),
+                invoice.getAmount(),
+                invoice.getContractNumber(),
+                purchaseId);
     }
 }

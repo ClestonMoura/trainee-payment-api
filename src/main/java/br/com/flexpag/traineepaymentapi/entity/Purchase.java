@@ -28,11 +28,7 @@ public class Purchase extends BaseEntity {
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
-    @OneToMany
-    @JoinTable(
-            name = "purchase_invoices",
-            joinColumns = @JoinColumn(name = "purchase_id"),
-            inverseJoinColumns = @JoinColumn(name = "invoice_id"))
+    @OneToMany(mappedBy = "purchase")
     private Set<Invoice> invoices;
 
     @OneToOne(mappedBy = "purchase")

@@ -1,13 +1,7 @@
 package br.com.flexpag.traineepaymentapi.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -21,6 +15,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Invoice extends BaseEntity {
 
     private LocalDate dueDate;
@@ -33,7 +28,8 @@ public class Invoice extends BaseEntity {
 
     private Long contractNumber;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "purchase_id", referencedColumnName = "id")
     private Purchase purchase;
 
 }
