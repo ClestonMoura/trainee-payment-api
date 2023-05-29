@@ -121,4 +121,22 @@ public class EntityMapper {
                 invoice.getContractNumber(),
                 purchaseId);
     }
+
+    public Transaction mapToTransaction(TransactionFormDTO request) {
+        return Transaction.builder()
+                .paymentType(request.paymentType())
+                .build();
+    }
+
+
+    public TransactionResponseDTO mapToTransactionResponseDTO(Transaction transaction, Long purchaseId) {
+        return new TransactionResponseDTO(
+                transaction.getId(),
+                transaction.getCreatedOn(),
+                transaction.getUpdatedOn(),
+                transaction.getPaymentType(),
+                transaction.getStatus(),
+                transaction.getAuthorizationCode(),
+                purchaseId);
+    }
 }
