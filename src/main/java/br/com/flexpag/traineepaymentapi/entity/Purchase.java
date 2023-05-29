@@ -24,7 +24,7 @@ public class Purchase extends BaseEntity {
 
     private Double fee;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 

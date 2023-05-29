@@ -6,6 +6,8 @@ import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import java.util.Set;
+
 @Entity(name = "Client")
 @Table(name = "client")
 @Where(clause = "deleted='false'")
@@ -31,5 +33,8 @@ public class Client extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
+
+    @OneToMany(mappedBy = "client")
+    private Set<Purchase> purchase;
 
 }
