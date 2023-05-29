@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/clients")
 @RequiredArgsConstructor
 public class ClientController {
 
