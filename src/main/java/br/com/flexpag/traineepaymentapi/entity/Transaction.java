@@ -21,6 +21,8 @@ public class Transaction extends BaseEntity {
     @Enumerated(value = EnumType.STRING)
     private PaymentTypeEnum paymentType;
 
+    private Integer installments;
+
     @Enumerated(value = EnumType.STRING)
     private StatusEnum status;
 

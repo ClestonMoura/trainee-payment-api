@@ -27,8 +27,8 @@ public class WebSecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(
-                                "/api/auth/**",
-                                "/api/address"
+                                "/api/payments/auth/**",
+                                "/api/payments/address"
                         ).permitAll()
                         .anyRequest()
                         .authenticated())

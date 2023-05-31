@@ -82,14 +82,6 @@ public class EntityMapper {
         );
     }
 
-    public Purchase mapToPurchase(PurchaseFormDTO request) {
-        return Purchase.builder()
-                .amount(request.amount())
-                .invoiceAmount(request.invoiceAmount())
-                .fee(request.fee())
-                .build();
-    }
-
     public PurchaseResponseDTO mapToPurchaseResponseDTO(Purchase purchase, Long clientId) {
         return new PurchaseResponseDTO(
                 purchase.getId(),
@@ -98,7 +90,11 @@ public class EntityMapper {
                 purchase.getAmount(),
                 purchase.getInvoiceAmount(),
                 purchase.getFee(),
-                clientId);
+                clientId,
+                purchase.getInvoices()
+                        .stream()
+                        .map(this::mapToInvoiceResponseDTO)
+                        .toList());
     }
 
     public Invoice mapToInvoice(InvoiceFormDTO request) {
@@ -110,7 +106,7 @@ public class EntityMapper {
                 .build();
     }
 
-    public InvoiceResponseDTO mapToInvoiceResponseDTO(Invoice invoice, Long purchaseId) {
+    public InvoiceResponseDTO mapToInvoiceResponseDTO(Invoice invoice) {
         return new InvoiceResponseDTO(
                 invoice.getId(),
                 invoice.getCreatedOn(),
@@ -118,8 +114,8 @@ public class EntityMapper {
                 invoice.getDueDate(),
                 invoice.getBarcode(),
                 invoice.getAmount(),
-                invoice.getContractNumber(),
-                purchaseId);
+                invoice.getPaid(),
+                invoice.getContractNumber());
     }
 
     public Transaction mapToTransaction(TransactionFormDTO request) {

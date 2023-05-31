@@ -22,11 +22,15 @@ public class Invoice extends BaseEntity {
 
     private String barcode;
 
-    private Long amount;
+    private Double amount;
 
-    private Boolean paid = false;
+    private Boolean paid;
 
     private Long contractNumber;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "purchase_id", referencedColumnName = "id")

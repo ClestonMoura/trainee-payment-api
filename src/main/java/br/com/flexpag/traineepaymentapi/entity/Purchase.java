@@ -5,7 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity(name = "Purchase")
 @Table(name = "purchase")
@@ -18,9 +18,9 @@ import java.util.Set;
 @Builder
 public class Purchase extends BaseEntity {
 
-    private Long amount;
+    private Double amount;
 
-    private Long invoiceAmount;
+    private Double invoiceAmount;
 
     private Double fee;
 
@@ -29,7 +29,7 @@ public class Purchase extends BaseEntity {
     private Client client;
 
     @OneToMany(mappedBy = "purchase")
-    private Set<Invoice> invoices;
+    private List<Invoice> invoices;
 
     @OneToOne(mappedBy = "purchase")
     private Transaction transactions;

@@ -5,6 +5,6 @@ import java.time.LocalDate;
 public record InvoiceFormDTO(
         LocalDate dueDate,
         String barcode,
-        Long amount,
+        Double amount,
         Long contractNumber) {
 }
