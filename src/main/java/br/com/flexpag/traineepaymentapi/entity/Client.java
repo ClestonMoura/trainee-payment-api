@@ -40,11 +40,4 @@ public class Client extends BaseEntity {
     @OneToMany(mappedBy = "client")
     private Set<Invoice> invoices;
 
-    public double getFees(ContractTypeEnum contractType, Double invoiceAmount) {
-        if (contractType == ContractTypeEnum.PF) {
-            return 0.025 * invoiceAmount;
-        }
-        return 0.045 * invoiceAmount;
-    }
-
 }

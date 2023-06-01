@@ -1,6 +1,9 @@
 package br.com.flexpag.traineepaymentapi.dto;
 
+import java.util.List;
+
 public record PurchaseFormDTO(
-        Long clientId,
-        Long contractNumber) {
+        Long amount,
+        Long invoiceAmount,
+        List<Long> invoicesId) {
 }

@@ -1,9 +1,6 @@
 package br.com.flexpag.traineepaymentapi.controller;
 
-import br.com.flexpag.traineepaymentapi.dto.InvoiceFormDTO;
-import br.com.flexpag.traineepaymentapi.dto.InvoiceResponseDTO;
-import br.com.flexpag.traineepaymentapi.dto.PurchaseFormDTO;
-import br.com.flexpag.traineepaymentapi.dto.PurchaseResponseDTO;
+import br.com.flexpag.traineepaymentapi.dto.*;
 import br.com.flexpag.traineepaymentapi.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +31,23 @@ public class PaymentController {
 
     @PostMapping("/clients/{clientId}/purchases")
     public ResponseEntity<PurchaseResponseDTO> createPurchase(@PathVariable Long clientId,
-                                                   @RequestBody PurchaseFormDTO purchaseFormDTO,
-                                                   UriComponentsBuilder builder) {
+                                                              @RequestBody PurchaseFormDTO purchaseFormDTO,
+                                                              UriComponentsBuilder builder) {
         var newPurchase = paymentService.createPurchase(clientId, purchaseFormDTO);
-        var uri = builder.path("/api/payments/clients/{clientId}/purchases/{id}")
+        var uri = builder.path("/clients/{clientId}/purchases/{id}")
                 .buildAndExpand(clientId, newPurchase.id()).toUri();
         return ResponseEntity.created(uri).body(newPurchase);
+    }
+
+    @PostMapping("/purchases/{purchaseId}/transactions")
+    public ResponseEntity<TransactionResponseDTO> createTransaction(@PathVariable Long purchaseId,
+                                                                    @RequestBody
+                                                                    TransactionFormDTO transactionFormDTO,
+                                                                    UriComponentsBuilder builder) {
+        var newTransaction = paymentService.createTransaction(purchaseId, transactionFormDTO);
+        var uri = builder.path("/purchases/{purchaseId}/transactions/{id}")
+                .buildAndExpand(purchaseId, newTransaction.id()).toUri();
+        return ResponseEntity.created(uri).body(newTransaction);
     }
 
 }

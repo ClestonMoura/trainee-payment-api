@@ -7,9 +7,8 @@ public record PurchaseResponseDTO(
         Long id,
         LocalDate createdOn,
         LocalDate updatedOn,
-        Double amount,
-        Double invoiceAmount,
-        Double fee,
+        Long amount,
+        Long invoiceAmount,
         Long clientId,
         List<InvoiceResponseDTO> invoices) {
 }

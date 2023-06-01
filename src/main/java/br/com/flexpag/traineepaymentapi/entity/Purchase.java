@@ -18,11 +18,9 @@ import java.util.List;
 @Builder
 public class Purchase extends BaseEntity {
 
-    private Double amount;
+    private Long amount;
 
-    private Double invoiceAmount;
-
-    private Double fee;
+    private Long invoiceAmount;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
