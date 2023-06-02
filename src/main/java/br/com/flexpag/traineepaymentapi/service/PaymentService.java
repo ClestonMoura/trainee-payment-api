@@ -17,6 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Classe de serviço das principais funcionalidades da aplicação
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -28,18 +31,34 @@ public class PaymentService {
     private final TransactionRepository transactionRepository;
     private final EntityMapper mapper;
 
+    /**
+     * Adiciona novas invoices
+     * @param invoiceFormDTOS Formulário de invoices
+     * @return Um DTO das invoices criadas
+     */
     public List<InvoiceResponseDTO> addInvoices(List<InvoiceFormDTO> invoiceFormDTOS) {
         var newInvoices = invoiceFormDTOS.stream().map(mapper::mapToInvoice).toList();
         newInvoices.forEach(invoice -> invoice.setPaid(false));
         return invoiceRepository.saveAll(newInvoices).stream().map(mapper::mapToInvoiceResponseDTO).toList();
     }
 
+    /**
+     * Consulta de invoices
+     * @param clientId Id do cliente
+     * @return Um DTO com as invoices do cliente
+     */
     public List<InvoiceResponseDTO> getInvoices(Long clientId) {
         var client = clientRepository.findById(clientId).orElseThrow();
         var invoices = invoiceRepository.findAllByContractNumberAndPaid(client.getContractNumber(), false);
         return invoices.stream().map(mapper::mapToInvoiceResponseDTO).toList();
     }
 
+    /**
+     * Criação de uma nova purchase
+     * @param clientId Id do Cliente
+     * @param purchaseFormDTO Formulário de criação da purchase
+     * @return Um DTO da purchase criada
+     */
     public PurchaseResponseDTO createPurchase(Long clientId, PurchaseFormDTO purchaseFormDTO) {
         var newPurchase = new Purchase();
         List<Invoice> invoices = invoiceRepository.findAllById(purchaseFormDTO.invoicesId());
@@ -52,6 +71,12 @@ public class PaymentService {
         return mapper.mapToPurchaseResponseDTO(clientId, purchaseRepository.save(newPurchase));
     }
 
+    /**
+     * Criação de uma nova transaction
+     * @param purchaseId Id da purchase
+     * @param transactionFormDTO Formulário de criação da transaction
+     * @return Um DTO da purchase criada
+     */
     public TransactionResponseDTO createTransaction(Long purchaseId, TransactionFormDTO transactionFormDTO) {
         var purchase = purchaseRepository.findById(purchaseId).orElseThrow();
         var newTransaction = new Transaction();
@@ -64,6 +89,10 @@ public class PaymentService {
                 transactionRepository.save(newTransaction), purchaseId);
     }
 
+    /**
+     * Método axiliar para gerar um status
+     * @return StatusEnum
+     */
     private StatusEnum randomStatusGenerator() {
         var random = new Random();
         StatusEnum[] values = StatusEnum.values();
@@ -71,6 +100,11 @@ public class PaymentService {
         return values[index];
     }
 
+    /**
+     * Método auxiliar para gerar um código de autorização
+     * @param size Tamanho do número gerado
+     * @return Um int aleatório
+     */
     private long randomIntegerWithSize(int size) {
         Random random = new Random();
         StringBuilder builder = new StringBuilder();

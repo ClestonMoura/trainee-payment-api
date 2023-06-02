@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * Serviço do JWT para gerar token
+ */
 @Service
 public class JwtService {
 

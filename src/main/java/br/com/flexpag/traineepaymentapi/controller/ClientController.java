@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ * Classe de controle responsavel por cadastro de cliente
+ */
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
@@ -20,6 +23,12 @@ public class ClientController {
 
     private final ClientService service;
 
+    /**
+     * Registra um novo cliente no sistema
+     * @param request Formulário de registr do cliente
+     * @param builder Criador do URI
+     * @return Um DTO do cliente registrado
+     */
     @PostMapping("/clients")
     public ResponseEntity<ClientResponseDTO> registerClient(@RequestBody ClientFormDTO request,
                                                             UriComponentsBuilder builder) {

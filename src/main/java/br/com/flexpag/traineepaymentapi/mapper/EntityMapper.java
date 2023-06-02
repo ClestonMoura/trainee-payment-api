@@ -6,6 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+/**
+ * Classe de mapeamento de entidades e DTOs
+ */
 @Component
 @RequiredArgsConstructor
 public class EntityMapper {
