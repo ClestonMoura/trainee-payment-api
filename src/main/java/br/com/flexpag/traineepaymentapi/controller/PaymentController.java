@@ -2,6 +2,7 @@ package br.com.flexpag.traineepaymentapi.controller;
 
 import br.com.flexpag.traineepaymentapi.dto.*;
 import br.com.flexpag.traineepaymentapi.service.PaymentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/payments")
 @RequiredArgsConstructor
+@SecurityRequirement(name = "bearer-key")
 public class PaymentController {
 
     private final PaymentService paymentService;
 
-    @PostMapping("/clients/{clientId}/invoices")
-    public ResponseEntity<List<InvoiceResponseDTO>> addInvoices(@PathVariable Long clientId,
-                                                                @RequestBody List<InvoiceFormDTO> invoiceFormDTOS) {
-        var newInvoices = paymentService.addInvoices(clientId, invoiceFormDTOS);
+    @PostMapping("/clients/invoices")
+    public ResponseEntity<List<InvoiceResponseDTO>> addInvoices(@RequestBody List<InvoiceFormDTO> invoiceFormDTOS) {
+        var newInvoices = paymentService.addInvoices(invoiceFormDTOS);
         return ResponseEntity.ok(newInvoices);
     }
 

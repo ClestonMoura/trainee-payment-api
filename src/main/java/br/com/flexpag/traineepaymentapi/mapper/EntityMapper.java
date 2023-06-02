@@ -109,6 +109,7 @@ public class EntityMapper {
                 transaction.getCreatedOn(),
                 transaction.getUpdatedOn(),
                 transaction.getPaymentType(),
+                transaction.getInstallments(),
                 transaction.getStatus(),
                 transaction.getAuthorizationCode(),
                 purchaseId);

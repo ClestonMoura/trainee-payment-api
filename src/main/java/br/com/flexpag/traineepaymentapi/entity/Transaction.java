@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 @Entity(name = "Transaction")
-@Table(name = "transaction")
+@Table(name = "transactions")
 @Where(clause = "deleted='false'")
 @SQLDelete(sql = "UPDATE invoice SET deleted = true WHERE id = ?")
 @AllArgsConstructor
@@ -29,7 +29,7 @@ public class Transaction extends BaseEntity {
     private Long authorizationCode;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "purchase_id", referencedColumnName = "id")
+    @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
 }

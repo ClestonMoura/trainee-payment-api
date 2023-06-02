@@ -1,6 +1,11 @@
 package br.com.flexpag.traineepaymentapi.config;
 
 import br.com.flexpag.traineepaymentapi.repository.UserRepository;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -55,6 +60,21 @@ public class ApplicationConfig {
     @Bean
     public AuditorAware<String> auditorAware() {
         return "Admin"::describeConstable;
+    }
+
+    @Bean
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .components(new Components()
+                        .addSecuritySchemes("bearer-key",
+                                new SecurityScheme()
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")))
+                .info(new Info()
+                        .title("Trainee payment API")
+                        .description("API que simula um sistema de pagamentos. Com funcinalidades de login de usuário, cadastro de cliente, consulta de faturas, e sistema de pagamento de faturas.")
+                        .contact(new Contact().name("Cleston Tavares de Moura Filho").email("cleston.filho@flexpag.com")));
     }
 
 }

@@ -8,7 +8,7 @@ import org.hibernate.annotations.Where;
 import java.util.List;
 
 @Entity(name = "Purchase")
-@Table(name = "purchase")
+@Table(name = "purchases")
 @Where(clause = "deleted='false'")
 @SQLDelete(sql = "UPDATE purchase SET deleted = true WHERE id = ?")
 @AllArgsConstructor
@@ -23,7 +23,7 @@ public class Purchase extends BaseEntity {
     private Long invoiceAmount;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    @JoinColumn(name = "client_id")
     private Client client;
 
     @OneToMany(mappedBy = "purchase")

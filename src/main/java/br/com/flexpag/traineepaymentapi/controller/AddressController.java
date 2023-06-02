@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/address")
+@RequestMapping("/api/payments")
 @RequiredArgsConstructor
 public class AddressController {
 
     private final AddressService service;
 
-    @GetMapping
+    @GetMapping("/address")
     public ResponseEntity<AddressDTO> getAddressByCep(@RequestParam(name = "cep") String cep) {
         var addressResponse = service.getAddressByCep(cep);
         return ResponseEntity.ok(addressResponse);

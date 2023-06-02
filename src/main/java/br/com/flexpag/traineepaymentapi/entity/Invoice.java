@@ -8,7 +8,7 @@ import org.hibernate.annotations.Where;
 import java.time.LocalDate;
 
 @Entity(name = "Invoice")
-@Table(name = "invoice")
+@Table(name = "invoices")
 @Where(clause = "deleted='false'")
 @SQLDelete(sql = "UPDATE invoice SET deleted = true WHERE id = ?")
 @AllArgsConstructor
@@ -29,11 +29,7 @@ public class Invoice extends BaseEntity {
     private Long contractNumber;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "client_id", referencedColumnName = "id")
-    private Client client;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "purchase_id", referencedColumnName = "id")
+    @JoinColumn(name = "purchase_id")
     private Purchase purchase;
 
 }

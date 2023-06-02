@@ -28,7 +28,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(
                                 "/api/payments/auth/**",
-                                "/api/payments/address"
+                                "/api/payments/address",
+                                "v3/api-docs/**",
+                                "swagger-ui.html",
+                                "swagger-ui/**"
                         ).permitAll()
                         .anyRequest()
                         .authenticated())

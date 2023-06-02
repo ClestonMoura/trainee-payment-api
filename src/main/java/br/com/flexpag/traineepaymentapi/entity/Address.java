@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 @Entity
-@Table(name = "address")
+@Table(name = "addresses")
 @Where(clause = "deleted='false'")
 @SQLDelete(sql = "UPDATE address SET deleted = true WHERE id = ?")
 @AllArgsConstructor
