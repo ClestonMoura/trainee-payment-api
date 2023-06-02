@@ -4,7 +4,6 @@ public enum PaymentTypeEnum {
 
     CREDITO,
     DEBITO,
-    DINHEIRO,
     PIX
 
 }

@@ -82,25 +82,6 @@ public class EntityMapper {
         );
     }
 
-    public Purchase mapToPurchase(PurchaseFormDTO request) {
-        return Purchase.builder()
-                .amount(request.amount())
-                .invoiceAmount(request.invoiceAmount())
-                .fee(request.fee())
-                .build();
-    }
-
-    public PurchaseResponseDTO mapToPurchaseResponseDTO(Purchase purchase, Long clientId) {
-        return new PurchaseResponseDTO(
-                purchase.getId(),
-                purchase.getCreatedOn(),
-                purchase.getUpdatedOn(),
-                purchase.getAmount(),
-                purchase.getInvoiceAmount(),
-                purchase.getFee(),
-                clientId);
-    }
-
     public Invoice mapToInvoice(InvoiceFormDTO request) {
         return Invoice.builder()
                 .dueDate(request.dueDate())
@@ -110,7 +91,7 @@ public class EntityMapper {
                 .build();
     }
 
-    public InvoiceResponseDTO mapToInvoiceResponseDTO(Invoice invoice, Long purchaseId) {
+    public InvoiceResponseDTO mapToInvoiceResponseDTO(Invoice invoice) {
         return new InvoiceResponseDTO(
                 invoice.getId(),
                 invoice.getCreatedOn(),
@@ -118,16 +99,9 @@ public class EntityMapper {
                 invoice.getDueDate(),
                 invoice.getBarcode(),
                 invoice.getAmount(),
-                invoice.getContractNumber(),
-                purchaseId);
+                invoice.getPaid(),
+                invoice.getContractNumber());
     }
-
-    public Transaction mapToTransaction(TransactionFormDTO request) {
-        return Transaction.builder()
-                .paymentType(request.paymentType())
-                .build();
-    }
-
 
     public TransactionResponseDTO mapToTransactionResponseDTO(Transaction transaction, Long purchaseId) {
         return new TransactionResponseDTO(
@@ -138,5 +112,16 @@ public class EntityMapper {
                 transaction.getStatus(),
                 transaction.getAuthorizationCode(),
                 purchaseId);
+    }
+
+    public PurchaseResponseDTO mapToPurchaseResponseDTO(Long clientId, Purchase purchase) {
+        return new PurchaseResponseDTO(
+                purchase.getId(),
+                purchase.getCreatedOn(),
+                purchase.getUpdatedOn(),
+                purchase.getAmount(),
+                purchase.getInvoiceAmount(),
+                clientId,
+                purchase.getInvoices().stream().map(this::mapToInvoiceResponseDTO).toList());
     }
 }

@@ -8,7 +8,7 @@ public record InvoiceResponseDTO(
         LocalDate updatedOn,
         LocalDate dueDate,
         String barcode,
-        Long amount,
-        Long contractNumber,
-        Long purchaseId) {
+        Double amount,
+        Boolean paid,
+        Long contractNumber) {
 }

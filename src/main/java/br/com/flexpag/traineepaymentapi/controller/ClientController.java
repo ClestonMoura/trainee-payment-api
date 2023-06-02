@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
-@RequestMapping("/api/clients")
+@RequestMapping("/api/payments")
 @RequiredArgsConstructor
 public class ClientController {
 
     private final ClientService service;
 
-    @PostMapping
+    @PostMapping("/clients")
     public ResponseEntity<ClientResponseDTO> registerClient(@RequestBody ClientFormDTO request,
                                                             UriComponentsBuilder builder) {
         var newClient = service.registerClient(request);
-        var uri = builder.path("/api/client/{id}").buildAndExpand(newClient.id()).toUri();
+        var uri = builder.path("/api/clients/{id}").buildAndExpand(newClient.id()).toUri();
         return ResponseEntity.created(uri).body(newClient);
     }
 

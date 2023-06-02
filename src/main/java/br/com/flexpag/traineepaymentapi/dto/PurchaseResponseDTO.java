@@ -1,6 +1,7 @@
 package br.com.flexpag.traineepaymentapi.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public record PurchaseResponseDTO(
         Long id,
@@ -8,6 +9,6 @@ public record PurchaseResponseDTO(
         LocalDate updatedOn,
         Long amount,
         Long invoiceAmount,
-        Double fee,
-        Long clientId) {
+        Long clientId,
+        List<InvoiceResponseDTO> invoices) {
 }
