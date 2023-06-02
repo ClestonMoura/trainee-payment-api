@@ -28,19 +28,15 @@ public class PaymentService {
     private final TransactionRepository transactionRepository;
     private final EntityMapper mapper;
 
-    public List<InvoiceResponseDTO> addInvoices(Long clientId, List<InvoiceFormDTO> invoiceFormDTOS) {
-        var client = clientRepository.findById(clientId).orElseThrow();
+    public List<InvoiceResponseDTO> addInvoices(List<InvoiceFormDTO> invoiceFormDTOS) {
         var newInvoices = invoiceFormDTOS.stream().map(mapper::mapToInvoice).toList();
-        newInvoices.forEach(invoice -> {
-                invoice.setClient(client);
-                invoice.setPaid(false);
-        });
+        newInvoices.forEach(invoice -> invoice.setPaid(false));
         return invoiceRepository.saveAll(newInvoices).stream().map(mapper::mapToInvoiceResponseDTO).toList();
     }
 
     public List<InvoiceResponseDTO> getInvoices(Long clientId) {
         var client = clientRepository.findById(clientId).orElseThrow();
-        var invoices = invoiceRepository.findAllByClientAndPaid(client, false);
+        var invoices = invoiceRepository.findAllByContractNumberAndPaid(client.getContractNumber(), false);
         return invoices.stream().map(mapper::mapToInvoiceResponseDTO).toList();
     }
 
@@ -59,6 +55,8 @@ public class PaymentService {
     public TransactionResponseDTO createTransaction(Long purchaseId, TransactionFormDTO transactionFormDTO) {
         var purchase = purchaseRepository.findById(purchaseId).orElseThrow();
         var newTransaction = new Transaction();
+        newTransaction.setPaymentType(transactionFormDTO.paymentType());
+        newTransaction.setInstallments(transactionFormDTO.installments());
         newTransaction.setStatus(randomStatusGenerator());
         newTransaction.setAuthorizationCode(randomIntegerWithSize(10));
         newTransaction.setPurchase(purchase);

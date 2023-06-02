@@ -6,10 +6,10 @@ import lombok.*;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity(name = "Client")
-@Table(name = "client")
+@Table(name = "clients")
 @Where(clause = "deleted='false'")
 @SQLDelete(sql = "UPDATE client SET deleted = true WHERE id = ?")
 @AllArgsConstructor
@@ -35,9 +35,6 @@ public class Client extends BaseEntity {
     private Address address;
 
     @OneToMany(mappedBy = "client")
-    private Set<Purchase> purchase;
-
-    @OneToMany(mappedBy = "client")
-    private Set<Invoice> invoices;
+    private List<Purchase> purchase;
 
 }

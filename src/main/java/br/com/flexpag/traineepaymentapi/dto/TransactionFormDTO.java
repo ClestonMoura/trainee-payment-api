@@ -4,6 +4,5 @@ import br.com.flexpag.traineepaymentapi.entity.enums.PaymentTypeEnum;
 
 public record TransactionFormDTO(
         PaymentTypeEnum paymentType,
-        Integer installments,
-        Long purchaseId) {
+        Integer installments) {
 }

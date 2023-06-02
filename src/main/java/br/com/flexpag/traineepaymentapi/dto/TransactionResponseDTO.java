@@ -10,6 +10,7 @@ public record TransactionResponseDTO(
         LocalDate createdOn,
         LocalDate updatedOn,
         PaymentTypeEnum paymentType,
+        Integer instsallments,
         StatusEnum status,
         Long authorizationCode,
         Long purchaseId) {
